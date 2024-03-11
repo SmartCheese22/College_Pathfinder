@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 const collegeSearchModel = require("./models/collegeS")
+const collegeGoingModel = require("./models/collegeG")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
@@ -20,38 +21,72 @@ app.use(cookieParser())
 
 mongoose.connect("mongodb+srv://ayushm2504:ayushmeena@collegepathfinder.wsekeel.mongodb.net/");
 
-app.post('/register', (req,res) => {
-    const {name, email ,password} = req.body;
+app.post('/registerCollegeS', (req, res) => {
+    const { name, email, password } = req.body;
     bcrypt.hash(password, 10)
-    .then(hash => {
-        collegeSearchModel.create({name,email,password: hash})
-        .then(collegeSearch => res.json(collegeSearch))
-        .catch(err => res.json(err))
-    }) .catch(err => console.log(err.message))
+        .then(hash => {
+            collegeSearchModel.create({ name, email, password: hash })
+                .then(collegeSearch => res.json(collegeSearch))
+                .catch(err => res.json(err))
+        }).catch(err => console.log(err.message))
 })
 
-app.post("/login", (req,res) => {
-    const {email, password} = req.body;
-    collegeSearchModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            bcrypt.compare(password, user.password, (err, response) => {
-                if(response){
-                    const token = jwt.sign({email: user.email}, "jwt-secret-key", {expiresIn:"1d"})
-                    res.cookie("token", token);
-                    res.json("Login Successful")
-                } else{
-                    res.json("Incorrect password")
-                }
-            })
-        } else {
-            res.json("User not found");
-        }
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).json("Server error");
-    });
+app.post('/registerCollegeG', (req, res) => {
+    const { name, username, email, password, college, major, graduationYear, opinion } = req.body;
+    bcrypt.hash(password, 10)
+        .then(hash => {
+            collegeGoingModel.create({ name, username, email, password: hash, college, major, graduationYear, opinion })
+                .then(collegeGoing => res.json(collegeGoing))
+                .catch(err => res.json(err))
+        }).catch(err => console.log(err.message))
+})
+
+app.post("/loginCollegeS", (req, res) => {
+    const { email, password } = req.body;
+    collegeSearchModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign({ email: user.email }, "jwt-secret-key", { expiresIn: "1d" })
+                        res.cookie("token", token);
+                        res.json("Login Successful")
+                    } else {
+                        res.json("Incorrect password")
+                    }
+                })
+            } else {
+                res.json("User not found");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json("Server error");
+        });
+});
+
+app.post("/loginCollegeG", (req, res) => {
+    const { email, password } = req.body;
+    collegeGoingModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign({ email: user.email }, "jwt-secret-key", { expiresIn: "1d" })
+                        res.cookie("token", token);
+                        res.json("Login Successful")
+                    } else {
+                        res.json("Incorrect password")
+                    }
+                })
+            } else {
+                res.json("User not found");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json("Server error");
+        });
 });
 
 app.post('/adminlogin', (req, res) => {
@@ -65,11 +100,11 @@ app.post('/adminlogin', (req, res) => {
 
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
-    if(!token){
+    if (!token) {
         return res.json("The token was not available")
-    } else{
-        jwt.verify(token, "jwt-secret-key", (err,decode) => {
-            if(err) return res.json("Token is wrong")
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err, decode) => {
+            if (err) return res.json("Token is wrong")
             next();
         })
     }
@@ -79,6 +114,10 @@ app.get('/home', verifyUser, (req, res) => {
     return res.json("Login Successful")
 })
 
+app.post('/logout', verifyUser, (req, res) => {
+    res.clearCookie("token");
+    return res.json("User Logged out")
+})
 
 app.listen(3001, () => {
     console.log("Server is running")

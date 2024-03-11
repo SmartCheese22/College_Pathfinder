@@ -51,23 +51,25 @@
     margin-bottom: 50px;
 }
 
-.login-right button {
-    margin-top: 20px;
-    height: 45px;
+.login-right label {
+    display: block;
+    margin: 1.25rem 0 1rem 0;
+    font-size: large;
+}
+
+.login-right input {
+    height: 25px;
     width: 60% !important;
-    background-color: #258de6;
-    color: white;
-    letter-spacing: 1px;
-    border: none;
-    display: block;
-    font-weight: bold;
+    padding: 15px;
+    background-color: #f1f9ff;
+    border: 2px solid #bce0fd;
     border-radius: 8px;
 }
 
-.login-button {
-    margin-top: 20px;
+.login-right button {
+    margin-top: 40px;
     height: 45px;
-    width: 100%;
+    width: 64% !important;
     background-color: #258de6;
     color: white;
     letter-spacing: 1px;
@@ -75,18 +77,26 @@
     display: block;
     font-weight: bold;
     border-radius: 8px;
-}
-
-.login-button:hover {
-    filter: brightness(95%);
-}
-
-.login-button:active {
-    transform: scale(0.98);
 }
 
 @media (max-width: 1000px) {
     .login-right {
         flex-basis: auto;
     }
+
+    .login-right input {
+        width: 250px;
+    }
+
+    .login-main {
+        display: block;
+    }
+}
+
+button:hover {
+    filter: brightness(95%);
+}
+
+button:active {
+    transform: scale(0.98);
 }

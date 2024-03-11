@@ -1,27 +1,37 @@
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import "./Signup.css";
 import LoginImage from "./Images/1.jpg";
-import Logo from "./Images/logo.jpg"
+import Logo from "./Images/logo.jpg";
+import "./LoginS.css";
 
-function Signup() {
-	const [name, setName] = useState()
-	const [email, setEmail] = useState()
-	const [password, setPassword] = useState()
-	const navigate = useNavigate()
+function LoginS() {
 
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+	const navigate = useNavigate();
+
+	axios.defaults.withCredentials = true;
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		if (!name || !email || !password) {
+		if (!email || !password) {
 			alert("All fields are required.");
 			return;
 		}
-		axios.post('http://localhost:3001/register', { name, email, password })
+		axios.post('http://localhost:3001/loginCollegeS', { email, password })
 			.then(result => {
-				console.log(result)
-				navigate('/login')
+				console.log(result);
+				if (result.data === "Login Successful") {
+					navigate('/home')
+				}
+				else if (result.data === "Incorrect password") {
+					alert("Invalid password")
+				}
+				else if (result.data === "User not found") {
+					alert("User not found")
+				}
 			})
 			.catch(err => console.log(err))
 	}
@@ -39,22 +49,9 @@ function Signup() {
 				</div>
 			</div>
 			<div className="login-right">
-				<div className="login-right-heading">Create Account</div>
+				<div className="login-right-heading">Login</div>
 				<form onSubmit={handleSubmit}>
-					<div>
-						<label htmlFor="email">
-							<strong>Name</strong>
-						</label>
-						<input
-							type="text"
-							placeholder="Enter Name"
-							autoComplete="off"
-							name="email"
-							className="form-control rounded-0"
-							onChange={(e) => setName(e.target.value)}
-						/>
-					</div>
-					<div>
+					<div className="mb-3">
 						<label htmlFor="email">
 							<strong>Email</strong>
 						</label>
@@ -67,7 +64,7 @@ function Signup() {
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
-					<div>
+					<div className="mb-3">
 						<label htmlFor="email">
 							<strong>Password</strong>
 						</label>
@@ -79,16 +76,15 @@ function Signup() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-					<button type="submit" >
-						Create Account
+					<button type="submit">
+						Login
 					</button>
 				</form>
-				<p>
-					<strong>Already Have an Account?</strong> <Link to="/login"> Login </Link>
-				</p>
+				<p><strong>Don't have an Account ?</strong></p>
+				<Link to='/registerCollegeS'>Sign up</Link>
 			</div>
 		</div>
 	);
 }
 
-export default Signup;
+export default LoginS;
