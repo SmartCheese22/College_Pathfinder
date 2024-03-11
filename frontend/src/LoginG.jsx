@@ -7,7 +7,8 @@ import LoginImage from "./Images/1.jpg";
 import Logo from "./Images/logo.jpg";
 import "./LoginG.css";
 import { useDispatch } from 'react-redux';
-import { login } from "./actions/authReducer";
+import { login } from "./actions/authActions";
+
 
 function LoginG() {
 	
@@ -18,28 +19,36 @@ function LoginG() {
 	const navigate = useNavigate();
 
 	axios.defaults.withCredentials = true;
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		if (!email || !password) {
-			alert("All fields are required.");
-			return;
-		}
-		axios.post('http://localhost:3001/loginCollegeG', { email, password })
-			.then(result => {
-				console.log(result);
-				if (result.data === "Login Successful") {
-					dispatch(login());
-					navigate('/home')
-				}
-				else if (result.data === "Incorrect password") {
-					alert("Invalid password")
-				}
-				else if (result.data === "User not found") {
-					alert("User not found")
-				}
-			})
-			.catch(err => console.log(err))
-	}
+	// Update your login action to fetch user details after successful login
+const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+        alert("All fields are required.");
+        return;
+    }
+    axios.post('http://localhost:3001/loginCollegeG', { email, password })
+        .then(result => {
+            console.log(result);
+            if (result.data.message === "Login Successful") {
+                const userData = result.data.user; // Extract user details from response
+                dispatch(login(userData));
+                // Call API to fetch additional user details and update Redux store
+                axios.get(`http://localhost:3001/getUserDetailsByEmail/${email}`)
+                    .then(response => {
+                        dispatch(updateUserDetails(response.data)); // Update Redux store with additional user details
+                        navigate('/home');
+                    })
+					.catch(err => console.log(err));
+					navigate("/home");
+            } else if (result.data === "Incorrect password") {
+                alert("Invalid password")
+            } else if (result.data === "User not found") {
+                alert("User not found")
+            }
+        })
+        .catch(err => console.log(err))
+};
+
 
 	return (
 		<div className="login-main">

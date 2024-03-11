@@ -41,6 +41,7 @@ app.post('/registerCollegeG', (req, res) => {
         }).catch(err => console.log(err.message))
 })
 
+// Modify login route to also return user details for collegeS model
 app.post("/loginCollegeS", (req, res) => {
     const { email, password } = req.body;
     collegeSearchModel.findOne({ email: email })
@@ -50,7 +51,7 @@ app.post("/loginCollegeS", (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email }, "jwt-secret-key", { expiresIn: "1d" })
                         res.cookie("token", token);
-                        res.json("Login Successful")
+                        res.json({ message: "Login Successful", user }); // Return user details along with the message
                     } else {
                         res.json("Incorrect password")
                     }
@@ -65,6 +66,24 @@ app.post("/loginCollegeS", (req, res) => {
         });
 });
 
+// New API endpoint to fetch user details by email for collegeS model
+app.get("/getUserDetailsByEmailCollegeS/:email", (req, res) => {
+    const { email } = req.params;
+    collegeSearchModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                res.json(user); // Return user details
+            } else {
+                res.status(404).json({ message: "User not found" });
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json("Server error");
+        });
+});
+
+
 app.post("/loginCollegeG", (req, res) => {
     const { email, password } = req.body;
     collegeGoingModel.findOne({ email: email })
@@ -74,13 +93,29 @@ app.post("/loginCollegeG", (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email }, "jwt-secret-key", { expiresIn: "1d" })
                         res.cookie("token", token);
-                        res.json("Login Successful")
+                        res.json({ message: "Login Successful", user }); // Return user details along with the message
                     } else {
                         res.json("Incorrect password")
                     }
                 })
             } else {
                 res.json("User not found");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json("Server error");
+        });
+});
+
+app.get("/getUserDetailsByEmail/:email", (req, res) => {
+    const { email } = req.params;
+    collegeGoingModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                res.json(user); // Return user details
+            } else {
+                res.status(404).json({ message: "User not found" });
             }
         })
         .catch(err => {

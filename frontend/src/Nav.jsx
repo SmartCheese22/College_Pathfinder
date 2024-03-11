@@ -4,12 +4,12 @@ import { FaSearch } from "react-icons/fa";
 import logo from "./Images/logo.jpg";
 import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "./actions/authReducer";
+import { logout } from "./actions/authActions";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Nav = () => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
   const navigate = useNavigate(); // Use useNavigate to get the navigation function
 
   const handleLogout = () => {

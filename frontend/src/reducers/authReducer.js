@@ -1,6 +1,7 @@
-// reducers/authReducer.js
+// src/redux/authReducer.js
 const initialState = {
-    isLoggedIn: false,
+    user: null, // Store user data
+    isLoggedIn: false
   };
   
   const authReducer = (state = initialState, action) => {
@@ -8,12 +9,14 @@ const initialState = {
       case 'LOGIN':
         return {
           ...state,
-          isLoggedIn: true,
+          user: action.payload,
+          isLoggedIn: true
         };
       case 'LOGOUT':
         return {
           ...state,
-          isLoggedIn: false,
+          user: null,
+          isLoggedIn: false
         };
       default:
         return state;
