@@ -1,14 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logout } from "./actions/authReducer";
 
 const Logout = () => {
+    const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       const response = await axios.post("http://localhost:3001/logout");
-      if (response.data === "User Logged out") {
+        if (response.data === "User Logged out") {
+            dispatch(logout());
         navigate('/login'); // Redirect to login page after logout
       } else {
         console.log("Logout failed");

@@ -6,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import LoginImage from "./Images/1.jpg";
 import Logo from "./Images/logo.jpg";
 import "./LoginS.css";
+import { useDispatch } from 'react-redux';
+import { login } from "./actions/authReducer";
 
 function LoginS() {
 
+	const dispatch = useDispatch();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const navigate = useNavigate();
@@ -24,6 +27,7 @@ function LoginS() {
 			.then(result => {
 				console.log(result);
 				if (result.data === "Login Successful") {
+					dispatch(login());
 					navigate('/home')
 				}
 				else if (result.data === "Incorrect password") {

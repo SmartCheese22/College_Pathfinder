@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import SignupS from './SignupS'
-import SignupG from './SignupG'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import LoginS from './LoginS'
-import LoginG from './LoginG'
-import Home from './Home'
-import Nav from './Nav'
-import Logout from './logout'
-import Login from './Login'
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SignupS from './SignupS';
+import SignupG from './SignupG';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import LoginS from './LoginS';
+import LoginG from './LoginG';
+import Home from './Home';
+import Nav from './Nav';
+import Logout from './logout';
+import Login from './Login';
 
 function App() {
   return (
-    <BrowserRouter> {/* Add BrowserRouter here */}
+    <BrowserRouter>
       <div>
         <Nav />
         <Routes>
@@ -27,7 +27,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
