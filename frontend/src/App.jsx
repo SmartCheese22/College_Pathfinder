@@ -39,6 +39,11 @@ const App = () => {
           <Route path="/home" element={<ProtectedRoute element={<Home />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/forum" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/search" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/compare" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/collegepredictor" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           {/* Define more routes as needed */}
         </Routes>
       </div>

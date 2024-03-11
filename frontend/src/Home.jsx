@@ -1,6 +1,7 @@
 import home_image from "./Images/home_image copy.png";
 import "./Home.css";
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import Cards from "../Cards/Cards";
 import {BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { FaTwitter, FaFacebook, FaInstagram ,FaLinkedinIn} from 'react-icons/fa';
@@ -184,15 +185,15 @@ function Footer(){
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>TOOLS</h4>
-                    <ul>
-                    <li><a href="./Profile">Profile</a></li>
-                        <li><a href="./Search">College Search</a></li>
-                    <li><a href="./Compare">College Compare</a></li>
-                        <li><a href="./CollegePredictor">College Predictor</a></li>
-                    <li><a href="./Forum">Forums</a></li>
-                    </ul>
-                </div>
+    <h4>TOOLS</h4>
+    <ul>
+        <li><Link to="/profile">Profile</Link></li>
+        <li><Link to="/search">College Search</Link></li>
+        <li><Link to="/compare">College Compare</Link></li>
+        <li><Link to="/collegepredictor">College Predictor</Link></li>
+        <li><Link to="/forum">Forums</Link></li>
+    </ul>
+</div>
                 <div class="footer-col">
                     <h4>follow us</h4>
                     <div class="social-links">
