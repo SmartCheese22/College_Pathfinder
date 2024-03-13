@@ -19,7 +19,7 @@ app.use(cors({
 app.use(cookieParser())
 
 
-mongoose.connect("mongodb+srv://ayushm2504:ayushmeena@collegepathfinder.wsekeel.mongodb.net/");
+mongoose.connect("mongodb+srv://prathamesh:prathamesh22@cluster0.jok6kqx.mongodb.net");
 
 app.post('/registerCollegeS', (req, res) => {
     const { name, email, password } = req.body;
@@ -126,7 +126,7 @@ app.get("/getUserDetailsByEmail/:email", (req, res) => {
 
 app.post('/adminlogin', (req, res) => {
     const { email, password } = req.body;
-    if (email === adminEmail && password === adminPassword) {
+    if (email === adminEmail.trim() && password === adminPassword.trim()) {
         res.json("Login Successful")
     } else {
         res.json("Invalid credentials")
@@ -153,6 +153,9 @@ app.post('/logout', verifyUser, (req, res) => {
     res.clearCookie("token");
     return res.json("User Logged out")
 })
+
+
+
 
 app.listen(3001, () => {
     console.log("Server is running")

@@ -10,6 +10,7 @@ import SignupG from './SignupG';
 import LoginS from './LoginS';
 import LoginG from './LoginG';
 import Profile from './profile';
+import AdminLogin from './adminLogin';
 
 // Custom component to handle authentication check
 const ProtectedRoute = ({ element, path }) => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/registerCollegeG" element={<SignupG />} />
           <Route path="/loginCollegeS" element={<LoginS />} />
           <Route path="/loginCollegeG" element={<LoginG />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/getUserDetailsByEmailCollegeS/:email" element={<SignupG />} />
           <Route path="/getUserDetailsByEmail/:email" element={<SignupG />} />
           <Route path="/getUserDetailsByEmailCollegeS/:email" element={<Profile  />} />

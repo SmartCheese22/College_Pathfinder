@@ -1,3 +1,8 @@
+
+
+
+
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -14,6 +19,9 @@ function SignupG() {
 	const [college, setCollege] = useState();
 	const [major, setMajor] = useState();
 	const [graduationYear, setGraduationYear] = useState();
+	const [academicOpinion, setAcademicOpinion] = useState('');
+    const [nonAcademicOpinion, setNonAcademicOpinion] = useState('');
+    const [overallOpinion, setOverallOpinion] = useState('');
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -22,7 +30,7 @@ function SignupG() {
 			alert("All fields are required.");
 			return;
 		}
-		axios.post('http://localhost:3001/registerCollegeG', { name, username, password, email, college, major, graduationYear })
+		axios.post('http://localhost:3001/registerCollegeG', { name, username, password, email, college, major, graduationYear, opinion: [academicOpinion, nonAcademicOpinion, '', overallOpinion]  })
 			.then(result => {
 				console.log(result);
 				navigate('/loginCollegeG');
@@ -134,6 +142,47 @@ function SignupG() {
 							className="form-control rounded-0"
 							onChange={(e) => setGraduationYear(e.target.value)}
 						/>
+					</div>
+					<div>
+						<label htmlFor="academicOpinion">
+							<strong>Academic Opinion</strong>
+						</label>
+						<input
+							type="text"
+							placeholder="Enter Academic Opinion"
+							autoComplete="off"
+							name="academicOpinion"
+							className="form-control rounded-0"
+							onChange={(e) => setAcademicOpinion(e.target.value)}
+						/>
+					</div>
+					<div>
+						<label htmlFor="nonAcademicOpinion">
+							<strong>Non-Academic Opinion</strong>
+						</label>
+						<input
+							type="text"
+							placeholder="Enter Non-Academic Opinion"
+							autoComplete="off"
+							name="nonAcademicOpinion"
+							className="form-control rounded-0"
+							onChange={(e) => setNonAcademicOpinion(e.target.value)}
+						/>
+						<div>
+						<label htmlFor="overallOpinion">
+								<strong>Overall Opinion</strong>
+							</label>
+							<input
+								type="text"
+								placeholder="Enter Overall Opinion"
+								autoComplete="off"
+								name="overallOpinion"
+								className="form-control rounded-0"
+								onChange={(e) => setOverallOpinion(e.target.value)}	
+							/>
+
+
+						</div>
 					</div>
 					<button type="submit" >
 						Create Account

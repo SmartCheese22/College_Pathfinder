@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-function adminLogin() {
+function AdminLogin() {
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -22,8 +22,8 @@ function adminLogin() {
             if (result.data === "Login Successful") {
                 navigate('/home')
             }
-            else if(result.data === "Invalid credentials ") {
-                alert("Invalid password")
+            else if(result.data === "Invalid credentials") {
+                alert("Invalid credentials")
             }
         })
         
@@ -69,4 +69,4 @@ function adminLogin() {
     );
 }
 
-export default adminLoginLogin;
+export default AdminLogin;
