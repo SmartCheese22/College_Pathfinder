@@ -1,0 +1,20 @@
+/* Styles for SearchResult component */
+.search-result {
+    padding: 20px;
+  }
+  
+  .student-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .opinions {
+    margin-top: 10px;
+  }
+  
+  .opinions p {
+    margin: 5px 0;
+  }
+  

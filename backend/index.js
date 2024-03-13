@@ -124,6 +124,20 @@ app.get("/getUserDetailsByEmail/:email", (req, res) => {
         });
 });
 
+
+app.get('/api/search', async (req, res) => {
+    const { college, branch } = req.query;
+    try {
+      // Find students based on college and branch
+      const students = await collegeGoingModel.find({ college, major: branch });
+      res.json(students);
+    } catch (error) {
+      console.error('Error searching students:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+
 app.post('/adminlogin', (req, res) => {
     const { email, password } = req.body;
     if (email === adminEmail.trim() && password === adminPassword.trim()) {

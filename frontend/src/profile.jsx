@@ -17,9 +17,13 @@ const Profile = () => {
           <p>College: {userData.college}</p>
           <p>Major: {userData.major}</p>
           <p>Graduation Year: {userData.graduationYear}</p>
-          <p>Academic: {userData.opinion[0]}</p>
-          <p>Non Academic: {userData.opinion[1]}</p>
-          <p>overall: {userData.opinion[3]}</p>
+          {userData.opinion && ( // Check if the opinion field exists
+            <div>
+              <p>Academic: {userData.opinion[0]}</p>
+              <p>Non Academic: {userData.opinion[1]}</p>
+              <p>Overall: {userData.opinion[3]}</p>
+            </div>
+          )}
           {/* Add more user information fields as needed */}
         </div>
       ) : (

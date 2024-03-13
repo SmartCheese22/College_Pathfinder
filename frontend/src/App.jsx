@@ -11,6 +11,7 @@ import LoginS from './LoginS';
 import LoginG from './LoginG';
 import Profile from './profile';
 import AdminLogin from './adminLogin';
+import Search from './search';
 
 // Custom component to handle authentication check
 const ProtectedRoute = ({ element, path }) => {
@@ -43,7 +44,7 @@ const App = () => {
           <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/forum" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
-          <Route path="/search" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/search" element={<ProtectedRoute element={<Search />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/compare" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/collegepredictor" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           {/* Define more routes as needed */}

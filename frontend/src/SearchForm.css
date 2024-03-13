@@ -1,0 +1,19 @@
+/* SearchForm.css */
+/* Custom styles for the search form */
+.search-form {
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+  }
+  
+  .input-group input {
+    flex-grow: 1;
+    margin-right: 5px;
+  }
+  
+  .input-group button {
+    margin-left: 5px;
+  }
+  
