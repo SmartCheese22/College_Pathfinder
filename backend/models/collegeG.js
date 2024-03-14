@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const collegeGSchema = new mongoose.Schema({
+    userType: {
+        type: String,
+        default: "collegeGoing"
+    },
     name: {
         type: String,
         required: true,

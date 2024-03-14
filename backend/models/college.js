@@ -18,7 +18,7 @@ const collegeSchema = new mongoose.Schema({
         required: true
     },
     placementStatistics: {
-        type: [Number],
+        type: String,
         required: true
     }
 });
