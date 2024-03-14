@@ -12,7 +12,7 @@ import LoginG from './LoginG';
 import Profile from './profile';
 import AdminLogin from './adminLogin';
 import Search from './search';
-
+import CollegeCompare from './CollegeCompare';
 // Custom component to handle authentication check
 const ProtectedRoute = ({ element, path }) => {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -37,6 +37,9 @@ const App = () => {
           <Route path="/getUserDetailsByEmail/:email" element={<SignupG />} />
           <Route path="/getUserDetailsByEmailCollegeS/:email" element={<Profile  />} />
           <Route path="/getUserDetailsByEmail/:email" element={<Profile  />} />
+          <Route path="/college/:collegeName" element={<Profile  />} />
+          <Route path="/opinions/:collegeName" element={<Profile  />} />
+          <Route path="/api/compare" element={<Profile  />} />
 
           {/* Protected routes */}
           <Route path="/home" element={<ProtectedRoute element={<Home />} />} /> {/* Wrap with ProtectedRoute */}
@@ -45,8 +48,8 @@ const App = () => {
           <Route path="/" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/forum" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/search" element={<ProtectedRoute element={<Search />} />} /> {/* Wrap with ProtectedRoute */}
-          <Route path="/compare" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
           <Route path="/collegepredictor" element={<ProtectedRoute element={<Logout />} />} /> {/* Wrap with ProtectedRoute */}
+          <Route path="/compare" element={<ProtectedRoute element={<CollegeCompare />} />} /> {/* Wrap with ProtectedRoute */}
           {/* Define more routes as needed */}
         </Routes>
       </div>

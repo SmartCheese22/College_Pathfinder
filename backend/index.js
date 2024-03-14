@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const collegeSearchModel = require("./models/collegeS")
 const collegeGoingModel = require("./models/collegeG")
+const College = require('./models/college');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
@@ -169,7 +170,56 @@ app.post('/logout', verifyUser, (req, res) => {
 })
 
 
+app.get('/college/:collegeName', async (req, res) => {
+    const { collegeName } = req.params;
+    try {
+      const college = await College.findOne(collegeName);
+      if (!college) {
+        return res.status(404).json({ error: 'College not found' });
+      }
+      res.json(college);
+    } catch (error) {
+      console.error('Error fetching college details:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+  // Route to fetch opinions by collegeName
+  app.get('/opinions/:collegeName', async (req, res) => {
+    const { collegeName } = req.params;
+    try {
+      const user = await collegeGoingModel.find({ collegeName });
+      if (user.length === 0) {
+        return res.status(404).json({ error: 'Opinions not found for this college' });
+      }
+      res.json(opinions);
+    } catch (error) {
+      console.error('Error fetching opinions:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
+  app.get('/api/compare', async (req, res) => {
+    const { college1, college2 } = req.query;
+  
+    try {
+      const [college1Data, college2Data] = await Promise.all([
+        College.findOne({ name: college1 }),
+        College.findOne({ name: college2 }),
+      ]);
+  
+      const data = {
+        college1: college1Data || {},
+        college2: college2Data || {},
+      };
+  
+      res.json(data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error fetching college data' });
+    }
+  });
 
 app.listen(3001, () => {
     console.log("Server is running")
