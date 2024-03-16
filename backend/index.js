@@ -169,36 +169,6 @@ app.post('/logout', verifyUser, (req, res) => {
     res.clearCookie("token");
     return res.json("User Logged out")
 })
-
-
-app.get('/college/:collegeName', async (req, res) => {
-const { collegeName } = req.params;
-try {
-    const college = await College.findOne(collegeName);
-    if (!college) {
-    return res.status(404).json({ error: 'College not found' });
-    }
-    res.json(college);
-} catch (error) {
-    console.error('Error fetching college details:', error);
-    res.status(500).json({ error: 'Internal server error' });
-}
-});
-  
-  // Route to fetch opinions by collegeName
-app.get('/opinions/:collegeName', async (req, res) => {
-    const { collegeName } = req.params;
-    try {
-    const user = await collegeGoingModel.find({ collegeName });
-    if (user.length === 0) {
-        return res.status(404).json({ error: 'Opinions not found for this college' });
-    }
-    res.json(opinions);
-    } catch (error) {
-    console.error('Error fetching opinions:', error);
-    res.status(500).json({ error: 'Internal server error' });
-    }
-});
   
 
 app.get('/api/compare', async (req, res) => {
