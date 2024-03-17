@@ -6,7 +6,8 @@ import ReactMarkdown from 'react-markdown';
 const CollegeCompare = () => {
     const [college1, setCollege1] = useState('');
     const [college2, setCollege2] = useState('');
-    const [branch, setBranch] = useState('');
+    const [branch1, setBranch1] = useState('');
+    const [branch2, setBranch2] = useState('');
     const [collegeData, setCollegeData] = useState({});
     const [userOpinions, setUserOpinions] = useState({ user1: [], user2: [] });
 
@@ -19,7 +20,7 @@ const CollegeCompare = () => {
         setCollegeData(collegeResponse.data);
 
         const userOpinionResponse = await axios.get('http://localhost:3001/api/useropinion', {
-          params: { college1, college2, branch },
+          params: { college1, college2, branch1, branch2 },
         });
         setUserOpinions(userOpinionResponse.data);
       } catch (error) {
@@ -64,8 +65,17 @@ const CollegeCompare = () => {
                 type="text"
                 className="form-control"
                 placeholder="Branch"
-                value={branch}
-                onChange={(e) => setBranch(e.target.value)}
+                value={branch1}
+                onChange={(e) => setBranch1(e.target.value)}
+              />
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Branch"
+                value={branch2}
+                onChange={(e) => setBranch2(e.target.value)}
               />
             </div>
             <div className="col-auto">
@@ -109,7 +119,7 @@ const CollegeCompare = () => {
                   <td>
                     {userOpinions.user1.map((user, index) => (
                       <div key={index} className="card mb-3">
-                        <div className="card-header bg-info text-white">{user.name}</div>
+                        <div className="card-header" style={{ backgroundColor: 'rgb(139, 178, 178)', color: 'white' }}>{user.name}</div>
                         <div className="card-body">
                           {user.opinion.map((opinion, opinionIndex) => (
                             <React.Fragment key={opinionIndex}>
@@ -125,7 +135,7 @@ const CollegeCompare = () => {
                   <td>
                     {userOpinions.user2.map((user, index) => (
                       <div key={index} className="card mb-3">
-                        <div className="card-header bg-info text-white">{user.name}</div>
+                        <div className="card-header" style={{ backgroundColor: 'rgb(139, 178, 178)', color: 'white' }}>{user.name}</div>
                         <div className="card-body">
                           {user.opinion.map((opinion, opinionIndex) => (
                             <React.Fragment key={opinionIndex}>

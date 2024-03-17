@@ -193,11 +193,11 @@ try {
 });
 
 app.get('/api/useropinion', async (req, res) => {
-    const { college1, college2, branch } = req.query;
+    const { college1, college2, branch1, branch2 } = req.query;
     try {
         const [user1Data, user2Data] = await Promise.all([
-            collegeGoingModel.find({ college: college1, major: branch }),
-            collegeGoingModel.find({ college: college2, major: branch }),
+            collegeGoingModel.find({ college: college1, major: branch1 }),
+            collegeGoingModel.find({ college: college2, major: branch2 }),
         ]);
 
         const data = {

@@ -68,6 +68,11 @@
     height: 680px;
     display: block; 
 }
+.custom-header {
+    background-color: green; /* Set the background color to green */
+    color: white; /* Set the text color to white */
+  }
+  
 
 /* 
 .up {
